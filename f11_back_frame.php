@@ -10,8 +10,23 @@
 // Copyright (C) 2018 Radu Dragan - fotodex.ro
 
 function f11_open_json($szData){
-  $arruTemp = json_decode(file_get_contents("{$data}.json"), true);
+  $arruTemp = json_decode(file_get_contents("{$szData}.json"), true);
   return $arruTemp;
+}
+
+function f11_open_csv($szData){
+  $arruTemp = [
+    "Open" => fopen("{$szData}.csv","r"),
+    "Out" => []
+  ];
+
+  while(! feof($arruTemp["Open"])){
+    array_push($arruTemp["Out"], fgetcsv($arruTemp["Open"]));
+  }
+
+  fclose($arruTemp["Open"]);
+
+  return $arruTemp["Out"];
 }
 
 ?>
